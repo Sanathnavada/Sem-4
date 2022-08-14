@@ -107,8 +107,6 @@ void main()
 	int a[n],high=n-1,low=0;
 	for(;;)
 	{
-	clock_t t1,t2;
-	double b=0.0,c=0.0,d=0.0;
 		printf("\nEnter \n1 for best case \n2 for average case \n3 for worst case \n4 to exit \n5 to check case\n");
 		scanf("%d",&ch);
 		switch(ch)
@@ -116,34 +114,21 @@ void main()
 			case 1:for(i=0;i<n;i++)
 					{a[i]=i+1;
 					}
-					t1=clock();
 					ms(low,high,a,n);
-					t2=clock();
-					b =(double)(t2-t1)/60;
-					printf("time taken is %f\n",b);
 					display(n,a);	
 					break;
 				
 			case 3:for(i=0;i<n;i++)
 					{
-						
 						a[i]=n-i;
-						
 					}
-					t1=clock();
 					ms(low,high,a,n);
-					t2=clock();
-					c =(double)(t2-t1)/60;
-					printf("time taken is %f\n",c);					
 					display(n,a);
 					break;
 			case 2:	for(i=0;i<n;i++)
 					a[i]= rand()%50000;
-					t1=clock();
+					
 					ms(low,high,a,n);
-					t2=clock();
-					d =(double)(t2-t1)/60;
-					printf("time taken is %f\n",d);		
 					display(n,a);
 					break;  
 			
