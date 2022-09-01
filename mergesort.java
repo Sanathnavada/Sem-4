@@ -1,75 +1,114 @@
 //package pgm1;
-import java.util.*;
- class Main 
+import java.util.Scanner;
+import java.util.Random;
+class Main 
 {
 	public static void main(String[] args) 
 	{
-		Scanner sc=new Scanner(System.in);
-		int n;
-		System.out.println("Enter the number of elements");
-		n=sc.nextInt();
-		int A[]=new int[n];
-		int i;
-		System.out.println("Enter the elements");
-		for(i=0;i<n;i++)
-		{
-			A[i]=sc.nextInt();
-		}
-		sc.close();
-		int low=0,high=(n-1);
-		merge_sort(A,low,high);
-		System.out.println("The sorted elements are:");
-		for(i=0;i<n;i++)
-		{
-			System.out.print(A[i]+" ");
-		}
-	}
-	static void merge_sort(int A[],int low,int high) 
+		Scanner scan=new Scanner(System.in);
+		Random ran=new Random();
+		long start,stop;
+		System.out.println("Enter no of elements");
+		int n=scan.nextInt();
+		int[] a=new int[n];
+		
+		while(true)
 	{
-		if(low<high)
+System.out.println(" Enter the choice 1: Best Case  2: Average Case  3:  Worst Case");
+		int ch=scan.nextInt();
+	
+	    
+		switch(ch)
 		{
-			int mid=(low+high)/2;
-			merge_sort(A,low,mid);
-			merge_sort(A,mid+1,high);
-			merge(A,low,mid,high);
-		}
+			case 1: System.out.println(" Best Case");
+					for(int i=0;i<n;i++)
+						a[i]=i;
+				break;
+		   	case 2: System.out.println(" Average Case");
+					for(int i=0;i<n;i++)
+						a[i]=ran.nextInt(n);
+				break;
+		   	case 3: System.out.println(" Worst Case");
+					for(int i=0;i<n;i++)
+					//	a[i]=scan.nextInt();
+						a[i]=n-i;
+				break;		
+			
+		}// end switch
+//recording the start time
+		start=System.nanoTime();
+		//function call
+		Mergesort(a,0,n-1);
+		// recording the end time
+		stop=System.nanoTime();
+		display(a);
+System.out.println("\nTime taken to sort " +a.length+ " elements =" +(stop-start));
 	}
-	static void merge(int A[],int low, int mid,int high)
+	}// end main
+		
+	private static void display(int[] a)
 	{
-		int B[]=new int[A.length];
-		int h=low,i=low,j=(mid+1),k;
-		while((h<=mid) && (j<=high))
+		// TODO Auto-generated method stub
+		System.out.println("the sorted array is");
+		for(int i=0;i<a.length;i++)
+			System.out.println(a[i]);
+		
+	}//end display
+
+	//function o divide the array
+	public static void Mergesort(int[] a, int low, int high)
+	{
+		int mid;
+		if(low<high)// array contains more than one element
 		{
-			if(A[h]<=A[j])
+			mid=(low+high)/2;// dividing the array in to two sub arrays
+			Mergesort(a, low, mid);// sorting sub arrays
+			Mergesort(a, mid+1, high);
+			Merge(a,low,mid,high);// combining or merging the sorted arrays
+		}
+	}// end Mergesort
+
+	//function to merge two sorted arrays
+	public static void Merge(int[] arr,int low,int mid,int high) 
+	{
+		int k,h=low,i=low,j=mid+1;
+		int[] b=new int[arr.length];
+		while(h<=mid && j<=high)
+		{
+			if(arr[h]<=arr[j])
 			{
-				B[i++]=A[h++];
+				b[i]=arr[h];
+				h++;
 			}
 			else
 			{
-				B[i++]=A[j++];
+				b[i]=arr[j];
+				j++;
 			}
-		}
-		if(h>mid)
+			i++;
+		}// end while
+		if(h>mid) // for remaining elements in upper half
 		{
 			for(k=j;k<=high;k++)
 			{
-				B[i]=A[k];
+				b[i]=arr[k];
 				i++;
 			}
 		}
-		else
+		else // for remaining elements in lower half
 		{
 			for(k=h;k<=mid;k++)
 			{
-				B[i]=A[k];
+				b[i]=arr[k];
 				i++;
-			}
+			}		
 		}
+		//copy the contents from auxiliary array i.e. from b to arr 
 		for(k=low;k<=high;k++)
-		{
-			A[k]=B[k];
-		}
-	}
-}
-	
+			arr[k]=b[k];
+	}// end merge
+}// end MergeSort class
+
+
+
 
